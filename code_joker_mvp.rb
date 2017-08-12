@@ -2,25 +2,25 @@
 
 
 require 'catpix'
-require 'rainbow'
+# require 'rainbow'
 require 'terminal-table'
 
 jokes = [
-  {joke: Rainbow("Not everything in programming is #000 and #fff").blue, rating: 0},
-  {joke: Rainbow("Haha funny joke here").blue, rating: 0},
-  {joke: Rainbow("joke1").blue, rating: 0},
-  {joke: Rainbow("joke2").blue, rating: 0},
-  {joke: Rainbow("joke3").blue, rating: 0},
-  {joke: Rainbow("joke4").blue, rating: 0},
-  {joke: Rainbow("joke5").blue, rating: 0},
-  {joke: Rainbow("joke6").blue, rating: 0},
-  {joke: Rainbow("joke7").blue, rating: 0},
-  {joke: Rainbow("joke8").blue, rating: 0}
+  {joke: "Not everything in programming is #000 and #fff", rating: 0},
+  {joke: "Haha funny joke here", rating: 0},
+  {joke: "joke1", rating: 0},
+  {joke: "joke2", rating: 0},
+  {joke: "joke3", rating: 0},
+  {joke: "joke4", rating: 0},
+  {joke: "joke5", rating: 0},
+  {joke: "joke6", rating: 0},
+  {joke: "joke7", rating: 0},
+  {joke: "joke8", rating: 0}
 ]
 
 puns = [
-  {pun: Rainbow("Why did the programmer quit his job? He didn't get arrays.").green, rating: 0},
-  {pun: Rainbow("Puntastic").green, rating: 0}
+  {pun: "Why did the programmer quit his job? He didn't get arrays.", rating: 0},
+  {pun: "Puntastic", rating: 0}
 ]
 
 images = [
@@ -83,7 +83,7 @@ class Humour
       _images = images
 
 
-      case humour_type                        
+      case humour_type
       when "j"
           x = shuffle(_jokes, :joke)
           puts x
@@ -127,24 +127,34 @@ class Humour
     rows << [x, rating_array[1]]
     rows << [x, rating_array[2]]
     rows << [x, rating_array[3]]
-    table = Terminal::Table.new :rows => rows
+    table = Terminal::Table.new :title => "My Favourite Humour", :headings => ['Joke / Pun', 'Rating'], :rows => rows
     puts "Here are the top jokes and puns: "
     puts table
+
+    the_user = User_copy.new("Bianca")
+
+    puts "Ps we've saved this for you for backup under favourite_jokes.txt ;)"
+
+    the_user.save_to_text(table)
 
 
   end
 
 end
 
-class User
+class User_copy
   def initialize(user_name)
     @user_name = user_name
   end
 
-  def favourite_humour
+  attr_accessor :user_name
+
+  def save_to_text(table)
     #save user's favourite humour (highest rated during session) to a .txt file
-      #can be retrieved next time they "log in"
+    File.open("favourite_jokes.txt", "w") { |file| file.write("Hi #{user_name}!
+    Here are your jokes \n #{table}") }
   end
+
 
 end
 
@@ -176,19 +186,19 @@ else
   funny_joke = Humour.new("funny")
 
   if audience == "w"
-    puts Rainbow("For work collegues I'd suggest a pun. Feel free to make your own selection though.").red
+    puts ("For work collegues I'd suggest a pun. Feel free to make your own selection though.")
 
     funny_joke.select_humour_type(jokes, puns, images)
 
   elsif audience == "s"
 
-    puts Rainbow("For students I'd suggest a joke. Feel free to make your own selection though.").red
+    puts ("For students I'd suggest a joke. Feel free to make your own selection though.")
 
     funny_joke.select_humour_type(jokes, puns, images)
 
   elsif audience == "m"
 
-    puts Rainbow("For meetups I'd suggest an image. Feel free to make your own selection though.").red
+    puts ("For meetups I'd suggest an image. Feel free to make your own selection though.")
 
     funny_joke.select_humour_type(jokes, puns, images)
 
