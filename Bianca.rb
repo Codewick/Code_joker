@@ -26,7 +26,7 @@ images = [
 ]
 
 ###METHODS###
-# @jokes_array = []
+
 def select_humour_type(jokes, puns, images)
 
   humour_type = " "
@@ -50,18 +50,16 @@ def select_humour_type(jokes, puns, images)
         }.values.first
         puts x
         puts "\n"
-        jokes_array << x
     when "p"
         _puns.shuffle!
         x = _puns.find { |hash|
           hash.keys.include?(:pun)
         }.values.first
-        puts x
+        puts y
         puts "\n"
-        jokes_array << x
     when "i"
         _images.shuffle!
-        image_name = _images.find { |hash|
+        puts _images.find { |hash|
           hash.keys.include?(:image)
         }.values.first
 
@@ -84,8 +82,6 @@ def select_humour_type(jokes, puns, images)
     end
 
     puts "\n"
-
-
     puts "How did you find this joke? Please enter a rating from 1 - 5 ?"
     puts "\n"
     rating = gets.chomp.to_i
@@ -95,10 +91,10 @@ def select_humour_type(jokes, puns, images)
 
   rating_array.sort
   rows = []
-  rows << [jokes_array[0], rating_array[0]]
-  rows << [jokes_array[1], rating_array[1]]
-  # rows << [jokes_array[2], rating_array[2]]
-  # rows << [jokes_array[3], rating_array[3]]
+  rows << [x, rating_array[0]]
+  rows << [x, rating_array[1]]
+  rows << [y, rating_array[2]]
+  rows << [y, rating_array[3]]
   table = Terminal::Table.new :rows => rows
   puts "Here are the top jokes and puns: "
   puts table
