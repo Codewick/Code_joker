@@ -2,8 +2,10 @@
 
 
 require 'catpix'
-# require 'rainbow'
+require 'rainbow'
 require 'terminal-table'
+require 'artii'
+require 'colorize'
 
 jokes = [
   {joke: "Not everything in programming is #000 and #fff", rating: 0},
@@ -60,18 +62,11 @@ class Humour
     }.values.first
   end
 
-  def rating
-    #code here to deal with ratings
-
-  end
-
   def select_humour_type(jokes, puns, images)
 
     humour_type = " "
 
     rating_array = []
-
-
 
     until humour_type == "q" do
       puts "Select: joke (j), pun (p), image (i), or quit (q)\n"
@@ -86,11 +81,11 @@ class Humour
       case humour_type
       when "j"
           x = shuffle(_jokes, :joke)
-          puts x
+          puts x.colorize(:color => :white, :background => :black)
           puts "\n"
       when "p"
           x = shuffle(_puns, :pun)
-          puts x
+          puts x.colorize(:color => :white, :background => :black)
           puts "\n"
       when "i"
           image_name = shuffle(_images, :image)
@@ -113,9 +108,7 @@ class Humour
           puts "thats not valid try again"
       end
 
-      puts "\n"
-      puts "How did you find this joke? Please enter a rating from 1 - 5 ?"
-      puts "\n"
+      puts "\nHow did you find this joke? Please enter a rating from 1 - 5 ?"
       rating = gets.chomp.to_i
       rating_array << rating
 
@@ -133,7 +126,7 @@ class Humour
 
     the_user = User_copy.new("Bianca")
 
-    puts "Ps we've saved this for you for backup under favourite_jokes.txt ;)"
+    puts Rainbow("Ps we've saved this for you for backup under favourite_jokes.txt ;)").orange
 
     the_user.save_to_text(table)
 
@@ -158,9 +151,29 @@ class User_copy
 
 end
 
+#########METHOD#########
+
+def animation
+  i = 1
+  while i < 12
+    print "\033[2J"
+    File.foreach("ascii_animation/#{i}.rb") { |f| puts f }
+    sleep(0.3)
+    i += 1
+  end
+end
+
 #########PROGRAM#########
 
-puts "Hey there coder! What's your name?"
+animation
+
+a = Artii::Base.new :font => 'slant'
+puts a.asciify('WELCOME TO')
+
+b = Artii::Base.new :font => 'slant'
+puts b.asciify('CODE JOKER')
+
+puts Rainbow("\nHey there coder! What's your name?").green
 
 coder_name = gets.chomp.downcase
 
@@ -179,32 +192,32 @@ if coder_name == "trent"
 else
 
 
-  puts "Hi #{coder_name}, what's your audience? Select: work collegues (w), students (s), or meetup peeps (m) "
+  puts Rainbow("\nHi #{coder_name}, what's your audience? Select: work collegues (w), students (s), or meetup peeps (m) ").blue
 
   audience = gets.chomp.downcase
 
   funny_joke = Humour.new("funny")
 
   if audience == "w"
-    puts ("For work collegues I'd suggest a pun. Feel free to make your own selection though.")
+    puts Rainbow("\nFor work collegues I'd suggest a pun. Feel free to make your own selection though.").red
 
     funny_joke.select_humour_type(jokes, puns, images)
 
   elsif audience == "s"
 
-    puts ("For students I'd suggest a joke. Feel free to make your own selection though.")
+    puts Rainbow("\nFor students I'd suggest a joke. Feel free to make your own selection though.").red
 
     funny_joke.select_humour_type(jokes, puns, images)
 
   elsif audience == "m"
 
-    puts ("For meetups I'd suggest an image. Feel free to make your own selection though.")
+    puts Rainbow("\nFor meetups I'd suggest an image. Feel free to make your own selection though.").red
 
     funny_joke.select_humour_type(jokes, puns, images)
 
   else
 
-    puts "Sorry, that's not valid. Just select a type of instead."
+    puts "\nSorry, that's not valid. Just select a type of instead."
 
     funny_joke.select_humour_type(jokes, puns, images)
 
