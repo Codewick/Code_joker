@@ -1,0 +1,12 @@
+Hi Bianca!
+    Here are your jokes 
+ +------------+--------+
+| My Favourite Humour |
++------------+--------+
+| Joke / Pun | Rating |
++------------+--------+
+
+
+
+
++------------+--------+
