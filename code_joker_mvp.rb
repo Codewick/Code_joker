@@ -22,7 +22,15 @@ jokes = [
 
 puns = [
   {pun: "Why did the programmer quit his job? He didn't get arrays.", rating: 0},
-  {pun: "Puntastic", rating: 0}
+  {pun: "Puntastic", rating: 0},
+  {pun: "pun1", rating: 0},
+  {pun: "pun2", rating: 0},
+  {pun: "pun3", rating: 0},
+  {pun: "pun4", rating: 0},
+  {pun: "pun5", rating: 0},
+  {pun: "pun6", rating: 0},
+  {pun: "pun7", rating: 0},
+  {pun: "pun8", rating: 0}
 ]
 
 images = [
@@ -38,13 +46,32 @@ class Audience
     @audience_type = audience_type
   end
 
-  def list_humour_by_audience_type
-    #this method allows the user to list all available humour recommended for their audience type
-      #this results in listing:
-        # all PUNS for WORK COLLEAGUES
-        # all JOKES for STUDENTS
-        # all IMAGES for MEETUPS
-    # I think this method should just list the jokes / puns / images one by one, and instructs the user to e.g. "Press "n" for the next joke or "m" to go back to the main menu"
+  def list_humour(jokes, puns, images)
+    choice = "n"
+    i = 0
+    while choice == "n" do
+      case @audience_type
+      when "w"
+        puts puns[i].first[1]
+        puts
+      when "s"
+        puts jokes[i].first[1]
+        puts
+      when "m"
+        puts images[i].first[1]
+        Catpix::print_image "#{images[i].first[1]}",
+          :limit_x => 1.0,
+          :limit_y => 1.0,
+          :center_x => true,
+          :center_y => true,
+          :bg => "white",
+          :bg_fill => true
+      end
+      i = i + 1
+      puts "Press (n) for the next joke or (q) to quit"
+      choice = gets.chomp.downcase
+      puts
+    end
   end
 
 
@@ -67,7 +94,7 @@ class Humour
     humour_type = " "
 
     rating_array = []
-
+    list_jokes = []
     until humour_type == "q" do
       puts "Select: joke (j), pun (p), image (i), or quit (q)\n"
 
@@ -83,10 +110,12 @@ class Humour
           x = shuffle(_jokes, :joke)
           puts x.colorize(:color => :white, :background => :black)
           puts "\n"
+          list_jokes << x
       when "p"
           x = shuffle(_puns, :pun)
           puts x.colorize(:color => :white, :background => :black)
           puts "\n"
+          list_jokes << x
       when "i"
           image_name = shuffle(_images, :image)
 
@@ -116,10 +145,10 @@ class Humour
 
     rating_array.sort
     rows = []
-    rows << [x, rating_array[0]]
-    rows << [x, rating_array[1]]
-    rows << [x, rating_array[2]]
-    rows << [x, rating_array[3]]
+    rows << [list_jokes[0], rating_array[0]]
+    rows << [list_jokes[1], rating_array[1]]
+    rows << [list_jokes[2], rating_array[2]]
+    rows << [list_jokes[3], rating_array[3]]
     table = Terminal::Table.new :title => "My Favourite Humour", :headings => ['Joke / Pun', 'Rating'], :rows => rows
     puts "Here are the top jokes and puns: "
     puts table
@@ -195,32 +224,38 @@ else
   puts Rainbow("\nHi #{coder_name}, what's your audience? Select: work collegues (w), students (s), or meetup peeps (m) ").blue
 
   audience = gets.chomp.downcase
-
+  puts
   funny_joke = Humour.new("funny")
+  audience1 = Audience.new(audience)
 
-  if audience == "w"
-    puts Rainbow("\nFor work collegues I'd suggest a pun. Feel free to make your own selection though.").red
-
-    funny_joke.select_humour_type(jokes, puns, images)
-
-  elsif audience == "s"
-
-    puts Rainbow("\nFor students I'd suggest a joke. Feel free to make your own selection though.").red
-
-    funny_joke.select_humour_type(jokes, puns, images)
-
-  elsif audience == "m"
-
-    puts Rainbow("\nFor meetups I'd suggest an image. Feel free to make your own selection though.").red
-
-    funny_joke.select_humour_type(jokes, puns, images)
-
+  puts "Do you want a list all available humour in the given category? Select: yes (y) or no (n)"
+  answer = gets.chomp.downcase
+  puts
+  if answer == "y"
+    audience1.list_humour(jokes, puns, images)
   else
+    if audience == "w"
 
-    puts "\nSorry, that's not valid. Just select a type of instead."
+      puts Rainbow("\nFor work collegues I'd suggest a pun. Enter (l) to list all puns or
+      feel free to make your own selection.").red
 
-    funny_joke.select_humour_type(jokes, puns, images)
+      funny_joke.select_humour_type(jokes, puns, images)
 
+    elsif audience == "s"
+
+      puts Rainbow("\nFor students I'd suggest a joke. Feel free to make your own selection though.").red
+      funny_joke.select_humour_type(jokes, puns, images)
+
+    elsif audience == "m"
+
+      puts Rainbow("\nFor meetups I'd suggest an image. Feel free to make your own selection though.").red
+      funny_joke.select_humour_type(jokes, puns, images)
+
+    else
+
+      puts "\nSorry, that's not valid. Just select a type of instead."
+      funny_joke.select_humour_type(jokes, puns, images)
+
+    end
   end
-
 end
