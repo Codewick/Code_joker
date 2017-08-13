@@ -9,33 +9,44 @@ require 'colorize'
 
 jokes = [
   {joke: "Not everything in programming is #000 and #fff", rating: 0},
-  {joke: "Haha funny joke here", rating: 0},
-  {joke: "joke1", rating: 0},
-  {joke: "joke2", rating: 0},
-  {joke: "joke3", rating: 0},
-  {joke: "joke4", rating: 0},
-  {joke: "joke5", rating: 0},
-  {joke: "joke6", rating: 0},
-  {joke: "joke7", rating: 0},
-  {joke: "joke8", rating: 0}
+  {joke: "If you give someone a program, you will frustrate them for a day; if you teach them how to program, you will frustrate them for a lifetime.", rating: 0},
+  {joke: "Q: How many programmers does it take to change a light bulb?\nA: None – It’s a hardware problem", rating: 0},
+  {joke: "Q: What do you call it when a programmer throws up at IHOP?\nA: A stack overflow.", rating: 0},
+  {joke: "Q: Why did the functions stop calling each other?\nA: Because they had constant arguments", rating: 0},
+  {joke: "['hip','hip']\n(hip hip array!)", rating: 0},
+  {joke: "Q: What is the most used language in programming?\nA: Profanity.", rating: 0},
+  {joke: "Q: Why is it that women find C to be more attractive than Java?\nA: Because C doesn’t treat them like objects.", rating: 0},
+  {joke: "Q: What do you call a collection that has no methods and doesn’t do anything?\nA: A listless list", rating: 0}
 ]
 
 puns = [
   {pun: "Why did the programmer quit his job? He didn't get arrays.", rating: 0},
-  {pun: "Puntastic", rating: 0},
-  {pun: "pun1", rating: 0},
-  {pun: "pun2", rating: 0},
-  {pun: "pun3", rating: 0},
-  {pun: "pun4", rating: 0},
-  {pun: "pun5", rating: 0},
-  {pun: "pun6", rating: 0},
-  {pun: "pun7", rating: 0},
-  {pun: "pun8", rating: 0}
+  {pun: "Never blow bubbles and ask a programmer to sort them, they will end up popping every one", rating: 0},
+  {pun: "To understand what recursion is, you must first understand recursion", rating: 0},
+  {pun: "ASCII stupid question, get a stupid ANSI", rating: 0},
+  {pun: "Technically speaking a programmer's favourite subject with his boss is usually arrays.", rating: 0},
+  {pun: "A foo walks into a bar, takes a look around and says: 'Hello world!'", rating: 0},
+  {pun: "There are no shortcuts in life, unless you right click and find one...", rating: 0},
+  {pun: "Q: How many bits of bait does a programmer need to go fishing?\nA: At least 8, or else the fish won’t byte", rating: 0},
+  {pun: "Programmer.\nA person who fixed a problem that you don't know you have, in a way you don't understand", rating: 0}
+
 ]
 
 images = [
-  {image: "1.jpg", rating: 0},
-  {image: "2.jpg", rating: 0}
+  {image: "images/1.jpg", rating: 0},
+  {image: "images/2.jpg", rating: 0},
+  {image: "images/3.jpg", rating: 0},
+  {image: "images/4.jpg", rating: 0},
+  {image: "images/5.jpg", rating: 0},
+  {image: "images/6.jpg", rating: 0},
+  {image: "images/7.jpg", rating: 0},
+  {image: "images/8.jpg", rating: 0},
+  {image: "images/9.jpg", rating: 0},
+  {image: "images/10.jpg", rating: 0},
+  {image: "images/11.jpg", rating: 0},
+  {image: "images/12.jpg", rating: 0},
+  {image: "images/13.jpg", rating: 0},
+  {image: "images/14.jpg", rating: 0}
 ]
 
 #########CLASSES#########
@@ -52,10 +63,10 @@ class Audience
     while choice == "n" do
       case @audience_type
       when "w"
-        puts puns[i].first[1]
+        puts puns[i].first[1].colorize(:color => :white, :background => :black)
         puts
       when "s"
-        puts jokes[i].first[1]
+        puts jokes[i].first[1].colorize(:color => :white, :background => :black)
         puts
       when "m"
         puts images[i].first[1]
