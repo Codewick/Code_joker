@@ -1,11 +1,15 @@
 # this is for develop
 
+#########RUBY GEMS#########
 
 require 'catpix'
 require 'rainbow'
 require 'terminal-table'
 require 'artii'
 require 'colorize'
+
+
+#########ARRAYS#########
 
 jokes = [
   {joke: "Not everything in programming is #000 and #fff", rating: 0},
@@ -49,8 +53,8 @@ images = [
   {image: "images/14.jpg", rating: 0}
 ]
 
-#########CLASSES#########
 
+#########CLASSES#########
 
 class Audience
   def initialize(audience_type)
@@ -164,7 +168,7 @@ class Humour
     puts "Here are the top jokes and puns: "
     puts table
 
-    the_user = User_copy.new("Bianca")
+    the_user = User.new("Bianca")
 
     puts Rainbow("Ps we've saved this for you for backup under favourite_jokes.txt ;)").orange
 
@@ -175,7 +179,7 @@ class Humour
 
 end
 
-class User_copy
+class User
   def initialize(user_name)
     @user_name = user_name
   end
@@ -205,18 +209,22 @@ end
 
 #########PROGRAM#########
 
+# Prints animation
 animation
 
+# Prints welcome message
 a = Artii::Base.new :font => 'slant'
 puts a.asciify('WELCOME TO')
 
 b = Artii::Base.new :font => 'slant'
 puts b.asciify('CODE JOKER')
 
+# Asks for and stores user's name
 puts Rainbow("\nHey there coder! What's your name?").green
 
 coder_name = gets.chomp.downcase
 
+# If user is "Trent", activates Easter Egg
 if coder_name == "trent"
   Catpix::print_image "rick_astley.jpg",
     :limit_x => 1.0,
@@ -229,9 +237,11 @@ if coder_name == "trent"
   `say "You have been rick rolled"`
 
   `afplay -t 35 /Users/bianca/Desktop/code_joker_files/audio/rick_astley.mp3`
+
+# Main program
 else
 
-
+  # Asks user to choose a target audience
   puts Rainbow("\nHi #{coder_name}, what's your audience? Select: work collegues (w), students (s), or meetup peeps (m) ").blue
 
   audience = gets.chomp.downcase
@@ -239,12 +249,18 @@ else
   funny_joke = Humour.new("funny")
   audience1 = Audience.new(audience)
 
+  # User can choose between listing all available humour recommended for category or going to main menu
   puts "Do you want a list all available humour in the given category? Select: yes (y) or no (n)"
   answer = gets.chomp.downcase
   puts
+
   if answer == "y"
+    # Lists all available humour recommended for chosen audience, one by one (press "n" to get next)
     audience1.list_humour(jokes, puns, images)
+
   else
+    # Suggests a type of humour for each audience type
+
     if audience == "w"
 
       puts Rainbow("\nFor work collegues I'd suggest a pun. Enter (l) to list all puns or
