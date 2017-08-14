@@ -47,10 +47,7 @@ images = [
   {image: "images/8.jpg", rating: 0},
   {image: "images/9.jpg", rating: 0},
   {image: "images/10.jpg", rating: 0},
-  {image: "images/11.jpg", rating: 0},
-  {image: "images/12.jpg", rating: 0},
-  {image: "images/13.jpg", rating: 0},
-  {image: "images/14.jpg", rating: 0}
+  {image: "images/11.jpg", rating: 0}
 ]
 
 
@@ -64,7 +61,7 @@ class Audience
   def list_humour(jokes, puns, images)
     choice = "n"
     i = 0
-    while choice == "n" do
+    while choice == "n" && i < 9 do         #FIXME: i < length of array (needs to work for both puns and jokes arrays)
       case @audience_type
       when "w"
         puts puns[i].first[1].colorize(:color => :white, :background => :black)
@@ -265,8 +262,7 @@ else
 
     if audience == "w"
 
-      puts Rainbow("\nFor work collegues I'd suggest a pun. Enter (l) to list all puns or
-      feel free to make your own selection.").red
+      puts Rainbow("\nFor work collegues I'd suggest a pun. Feel free to make your own selection though.").red
 
       funny_joke.select_humour_type(jokes, puns, images, coder_name)
 
