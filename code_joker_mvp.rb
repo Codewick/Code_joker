@@ -104,7 +104,7 @@ class Humour
     }.values.first
   end
 
-  def select_humour_type(jokes, puns, images)
+  def select_humour_type(jokes, puns, images, coder_name)
 
     humour_type = " "
 
@@ -165,10 +165,10 @@ class Humour
     rows << [list_jokes[2], rating_array[2]]
     rows << [list_jokes[3], rating_array[3]]
     table = Terminal::Table.new :title => "My Favourite Humour", :headings => ['Joke / Pun', 'Rating'], :rows => rows
-    puts "Here are the top jokes and puns: "
+    puts "Here are the jokes and puns you've seen: "
     puts table
 
-    the_user = User.new("Bianca")
+    the_user = User.new("#{coder_name}")
 
     puts Rainbow("Ps we've saved this for you for backup under favourite_jokes.txt ;)").orange
 
@@ -241,6 +241,8 @@ if coder_name == "trent"
 # Main program
 else
 
+  coder_name = coder_name.capitalize
+
   # Asks user to choose a target audience
   puts Rainbow("\nHi #{coder_name}, what's your audience? Select: work collegues (w), students (s), or meetup peeps (m) ").blue
 
@@ -266,22 +268,22 @@ else
       puts Rainbow("\nFor work collegues I'd suggest a pun. Enter (l) to list all puns or
       feel free to make your own selection.").red
 
-      funny_joke.select_humour_type(jokes, puns, images)
+      funny_joke.select_humour_type(jokes, puns, images, coder_name)
 
     elsif audience == "s"
 
       puts Rainbow("\nFor students I'd suggest a joke. Feel free to make your own selection though.").red
-      funny_joke.select_humour_type(jokes, puns, images)
+      funny_joke.select_humour_type(jokes, puns, images, coder_name)
 
     elsif audience == "m"
 
       puts Rainbow("\nFor meetups I'd suggest an image. Feel free to make your own selection though.").red
-      funny_joke.select_humour_type(jokes, puns, images)
+      funny_joke.select_humour_type(jokes, puns, images, coder_name)
 
     else
 
       puts "\nSorry, that's not valid. Just select a type of instead."
-      funny_joke.select_humour_type(jokes, puns, images)
+      funny_joke.select_humour_type(jokes, puns, images, coder_name)
 
     end
   end
