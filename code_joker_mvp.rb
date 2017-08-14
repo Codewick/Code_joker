@@ -151,7 +151,11 @@ class Humour
 
       puts "\nHow did you find this joke? Please enter a rating from 1 - 5 ?"
       rating = gets.chomp.to_i
-      rating_array << rating
+
+      # Only put text-based humour into table & favourite_jokes.txt
+      if humour_type != "i"
+        rating_array << rating
+      end
 
     end
 
@@ -161,6 +165,9 @@ class Humour
     rows << [list_jokes[1], rating_array[1]]
     rows << [list_jokes[2], rating_array[2]]
     rows << [list_jokes[3], rating_array[3]]
+    rows << [list_jokes[4], rating_array[4]]
+    rows << [list_jokes[5], rating_array[5]]
+    rows << [list_jokes[6], rating_array[6]]
     table = Terminal::Table.new :title => "My Favourite Humour", :headings => ['Joke / Pun', 'Rating'], :rows => rows
     puts "Here are the jokes and puns you've seen: "
     puts table
