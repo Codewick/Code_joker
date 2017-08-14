@@ -240,7 +240,7 @@ if coder_name == "trent"
 
   `say "You have been rick rolled"`
 
-  `afplay -t 35 /Users/bianca/Desktop/code_joker_files/audio/rick_astley.mp3`
+  `afplay -t 35 /Users/bianca/Desktop/code_joker/audio/rick_astley.mp3`
 
 # Main program
 else
